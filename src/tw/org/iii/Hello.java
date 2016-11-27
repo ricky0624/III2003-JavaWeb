@@ -34,20 +34,34 @@ public class Hello extends HttpServlet {
 	
 	@Override
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		System.out.println("service()");
+		//System.out.println("service()");
 		//super.service(arg0, arg1);
 //		String key1 = request.getParameter("key1");
 //		System.out.println("key1=" + key1);
 //		String key2 = request.getParameter("key2");
 //		System.out.println("key2=" + key2);
 		
-	Enumeration<String> ps = request.getParameterNames();
-			while(ps.hasMoreElements())
-			{
-				String item = ps.nextElement();
-				String value = request.getParameter(item);
-				System.out.println(item + " => " + value);
-			}
+
+	
+	try
+	{
+		HttpServletRequest rq = (HttpServletRequest)request;
+		String method = rq.getMethod();
+		System.out.println(method);
+		Enumeration<String> ps = request.getParameterNames();
+		while(ps.hasMoreElements())
+		{
+			String item = ps.nextElement();
+			String value = request.getParameter(item);
+			System.out.println(item + " => " + value);
+		}
+	}
+	
+	catch(ClassCastException ce)
+	{
+		System.out.println(ce.toString());
+	}
+	
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -66,4 +80,5 @@ public class Hello extends HttpServlet {
 		System.out.println("doPost()");
 	}
 
+	
 }
