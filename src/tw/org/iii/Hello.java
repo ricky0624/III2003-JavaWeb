@@ -11,74 +11,58 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class Hello
- */
 @WebServlet("/Hello")
 public class Hello extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public Hello() {
-       System.out.println("Hello()");
+    	System.out.println("Hello()");
     }
+    
+    
 
-	@Override
-	public void init() throws ServletException {
-		System.out.println("init()");
-		//super.init();
-	}
+//	@Override
+//	public void init() throws ServletException {
+//		super.init();
+//		//����惇��
+//	}
 
-	
 	@Override
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
-		//System.out.println("service()");
-		//super.service(arg0, arg1);
-//		String key1 = request.getParameter("key1");
-//		System.out.println("key1=" + key1);
-//		String key2 = request.getParameter("key2");
-//		System.out.println("key2=" + key2);
+		System.out.println("service()");
+		//super.service(request, response);
 		
+		try{
+			HttpServletRequest req = (HttpServletRequest)request;
+			String method = req.getMethod();
+			System.out.println(method);
+			
+//			String key1 = request.getParameter("key1");
+//			System.out.println("key1 = " + key1);
+//			String key2 = request.getParameter("key2");
+//			System.out.println("key2 = " + key2);
 
-	
-	try
-	{
-		HttpServletRequest rq = (HttpServletRequest)request;
-		String method = rq.getMethod();
-		System.out.println(method);
-		Enumeration<String> ps = request.getParameterNames();
-		while(ps.hasMoreElements())
-		{
-			String item = ps.nextElement();
-			String value = request.getParameter(item);
-			System.out.println(item + " => " + value);
+			Enumeration<String> ps = req.getParameterNames();
+			while (ps.hasMoreElements()){
+				String item = ps.nextElement();
+				String value = req.getParameter(item);
+				System.out.println(item + " => " + value);
+			}
+			
+		}catch(ClassCastException ce){
+			System.out.println(ce.toString());
 		}
+		
 	}
-	
-	catch(ClassCastException ce)
-	{
-		System.out.println(ce.toString());
-	}
-	
-	}
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("doGet()");
+		//response.getWriter().append("Served @: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		//doGet(request, response);
 		System.out.println("doPost()");
+		//doGet(request, response);
 	}
 
-	
 }
